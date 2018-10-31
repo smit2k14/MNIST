@@ -48,3 +48,16 @@ def train_neural_network(x):
         optimizer = tf.train.AdamOptimizer().minimize(cost)
 
         hm_epochs = 10
+        
+        with tf.Session() as sess:
+            sess.run(tf.global_variables_initializer()) #This should be global variables instead of initialize all vars
+
+
+
+            for epoch in range(hm_epochs):
+                epoch_loss = 0 
+                for _ in range(int(mnist.train.num_examples/batch_size)):
+                    epoch_x, epoch_y = mnist.train.next_batch(batch_size)
+                    _, c = sess.run([optimizer, cost], feed_dict = {x : epoch_x ,y : epoch_y})
+                    epoch_loss += c
+                print('Epoch', epoch,'completed out of', hm_epochs,'loss:',epoch_loss)
