@@ -41,3 +41,10 @@ def neural_network_model(data) :
 
     output = tf.matmul(l3, output_layer['weights'] + output_layer['biases'])
     return output #Here te return statement natu lakhyu
+
+def train_neural_network(x):
+        prediction = neural_network_model(x)
+        cost = tf.reduce_mean( tf.nn.softmax_cross_entropy_with_logits(labels = y, logits = prediction) )
+        optimizer = tf.train.AdamOptimizer().minimize(cost)
+
+        hm_epochs = 10
